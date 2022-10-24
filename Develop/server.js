@@ -1,9 +1,13 @@
+// ****************************************
+// first code from 11-express 04-Stu 
+// ****************************************
+
 // libraries from node_module used
 const express = require('express');
 const path = require('path');
 // ?fs
 const fs = require('fs');
-const data = require('./db/db.json'); 
+const notesData = require('./db/db.json'); 
 
 // Initialize PORT and app variable
 const PORT = 3001;
@@ -19,7 +23,13 @@ app.use(express.static('public'));
 // THIS IS THE ROUTE HANDLER
 // THIS IS THE API END POINT
 app.get('/api', (req, res) => {
-  res.json(data)
+  res.json(notesData)
+});
+
+app.get('/api/notes', (req, res) => {
+  console.log("__dirname is " + __dirname);
+  console.log("file path is " + path.join(__dirname, 'public/notes.html'))
+  res.sendFile(path.join(__dirname, 'public/notes.html'))
 });
 
 
@@ -44,6 +54,8 @@ app.get('/pathfile_no_extension', (req, res) => {
   console.log("file path is " + path.join(__dirname, 'terms'))
   res.sendFile(path.join(__dirname, 'terms'))
 });
+
+
 
 
 // Fallback route for when a user attempts to visit routes that don't exist
